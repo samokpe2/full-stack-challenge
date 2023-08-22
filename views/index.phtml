@@ -2,15 +2,13 @@
 <html>
 <head>
     <title>Business and Director Info</title>
-    <!-- Include Bootstrap CSS -->
+    <!-- Included Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <!-- Include DataTables CSS -->
+    <!-- Included DataTables CSS -->
     <link rel="stylesheet" href="https://cdn.datatables.net/1.10.21/css/jquery.dataTables.min.css">
 </head>
+<!-- Include styling  -->
 <style>
-
-    
-
     body{
         background-image : url("img/background.jpeg");
         color:white !important;
@@ -20,7 +18,7 @@
        text-align: center;
        color:white !important; 
     }
-
+    
     .container{
         background: rgba(255, 255, 255, 0.2);
         border-radius: 16px;
@@ -76,6 +74,7 @@
                 </tr>
             </thead>
             <tbody>
+                <!-- Table loaded with PHP -->
                 <?php foreach($records as $record): ?>
                     <tr>
                         <td class="glassy"><?= $record['id'] ?></td>
@@ -98,7 +97,7 @@
                 paging: true, // Enable pagination
                 ordering: true, // Enable sorting
                 searching: true, // Enable searching
-                lengthMenu: [10, 25, 50, 100, 200, 500, 1000]
+                lengthMenu: [10, 25, 50, 100, 200, 500, 1000] //length for page entries
             });
         });
     </script>
