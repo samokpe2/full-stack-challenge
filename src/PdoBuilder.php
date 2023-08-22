@@ -8,6 +8,7 @@ use PDOException;
 class PdoBuilder
 {
     protected $config;
+    private $pdo;
 
     public function __construct(array $config)
     {

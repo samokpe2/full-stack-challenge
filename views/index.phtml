@@ -1,22 +1,106 @@
-<table>
-    <thead>
-        <tr>
-            <th>Id</th>
-            <th>Director Name</th>
-            <th>Business Name</th>
-            <th>Business Address</th>
-            <th>Business Registration #</th>
-        </tr>
-    </thead>
-    <tbody>
-        <?php foreach($records as $record): ?>
-            <tr>
-                <td><?= $record['id'] ?></td>
-                <td><?= $record['first_name'] . ' ' . $record['last_name'] ?></td>
-                <td><?= $record['name'] ?></td>
-                <td><?= $record['registered_address'] ?></td>
-                <td><?= $record['registration_number'] ?></td>
-            </tr>
-        <?php endforeach; ?>
-    </tbody>
-</table>
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Business and Director Info</title>
+    <!-- Include Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <!-- Include DataTables CSS -->
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.21/css/jquery.dataTables.min.css">
+</head>
+<style>
+
+    
+
+    body{
+        background-image : url("img/background.jpeg");
+        color:white !important;
+    }
+
+    h1{
+       text-align: center;
+       color:white !important; 
+    }
+
+    .container{
+        background: rgba(255, 255, 255, 0.2);
+        border-radius: 16px;
+        box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+        backdrop-filter: blur(5px);
+        -webkit-backdrop-filter: blur(5px);
+        border: 1px solid rgba(255, 255, 255, 0.3);
+        color:white !important;
+        padding-top: 20px;
+    }
+
+    label{
+        color: white !important;
+    }
+
+    label input {
+        border: none;
+    }
+
+    .dataTables_info {
+        color:white !important;
+    }
+
+    .paginate_button {
+        color:white !important;
+    }
+
+    thead {
+        color:white !important;
+    }
+
+    tbody tr {
+        background: rgba(255, 255, 255, 0.2) !important;
+        box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+        backdrop-filter: blur(5px);
+        -webkit-backdrop-filter: blur(5px);
+        border: 1px solid rgba(255, 255, 255, 0.3);
+        color:white !important;
+    }
+    
+</style>
+<body>
+    <h1>Business Data</h1>
+    <div class="container mt-5">
+        <table id="dataTable" class="table">
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Director Name</th>
+                    <th>Business Name</th>
+                    <th>Business Address</th>
+                    <th>Business Registration #</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php foreach($records as $record): ?>
+                    <tr>
+                        <td class="glassy"><?= $record['id'] ?></td>
+                        <td class="glassy"><?= $record['first_name'] . ' ' . $record['last_name'] ?></td>
+                        <td class="glassy"><?= $record['name'] ?></td>
+                        <td class="glassy"><?= $record['registered_address'] ?></td>
+                        <td class="glassy"><?= $record['registration_number'] ?></td>
+                    </tr>
+                <?php endforeach; ?>
+            </tbody>
+        </table>
+    </div>
+    <!-- Include jQuery and DataTables JavaScript -->
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
+    <!-- Your custom JavaScript code here -->
+    <script>
+        $(document).ready(function() {
+            $('#dataTable').DataTable({
+                paging: true, // Enable pagination
+                ordering: true, // Enable sorting
+                searching: true, // Enable searching
+                lengthMenu: [10, 25, 50, 100, 200, 500, 1000]
+            });
+        });
+    </script>
+</body>
+</html>

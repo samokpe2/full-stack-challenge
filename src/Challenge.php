@@ -2,6 +2,9 @@
 
 namespace Otto;
 
+use PDO;
+use PDOException;
+
 class Challenge
 {
     protected $pdoBuilder;
@@ -20,7 +23,25 @@ class Challenge
     public function getRecords() 
     {
         // TODO
-        return array();
+
+        $pdo = $this->pdoBuilder->getPdo();
+
+        $query = "
+        SELECT d.id, d.first_name, d.last_name, b.name, b.registered_address, b.registration_number
+        FROM directors d
+        JOIN director_businesses db ON d.id = db.director_id
+        JOIN businesses b ON db.business_id = b.id
+        ";
+
+        try {
+            $statement = $pdo->prepare($query);
+            $statement->execute();
+
+            return $statement->fetchAll(PDO::FETCH_ASSOC);
+        } catch (PDOException $e) {
+            // Handle the exception, e.g., log the error or show a user-friendly message
+            return []; // Return an empty array in case of an error
+        }
     }
 
     /**
@@ -30,8 +51,23 @@ class Challenge
      */
     public function getDirectorRecords() 
     {
-        // TODO
-        return array();
+
+        $pdo = $this->pdoBuilder->getPdo();
+
+        $query = "
+            SELECT d.id, d.first_name, d.last_name, d.occupation, d.date_of_birth
+            FROM directors d
+        ";
+
+        try {
+            $statement = $pdo->prepare($query);
+            $statement->execute();
+
+            return $statement->fetchAll(PDO::FETCH_ASSOC);
+        } catch (PDOException $e) {
+            // Handle the exception, e.g., log the error or show a user-friendly message
+            return []; // Return an empty array in case of an error
+        }
     }
 
     /**
@@ -42,8 +78,24 @@ class Challenge
      */
     public function getSingleDirectorRecord($id)
     {
-        // TODO
-        return array();
+        $pdo = $this->pdoBuilder->getPdo();
+
+        $query = "
+            SELECT d.id, d.first_name, d.last_name, d.occupation, d.date_of_birth
+            FROM directors d
+            WHERE d.id = :id
+        ";
+
+        try {
+            $statement = $pdo->prepare($query);
+            $statement->bindParam(':id', $id, PDO::PARAM_INT);
+            $statement->execute();
+
+            return $statement->fetch(PDO::FETCH_ASSOC);
+        } catch (PDOException $e) {
+            // Handle the exception, e.g., log the error or show a user-friendly message
+            return null; // Return null in case of an error
+        }
     }
 
     /**
@@ -53,8 +105,22 @@ class Challenge
      */
     public function getBusinessRecords() 
     {
-        // TODO
-        return array();
+        $pdo = $this->pdoBuilder->getPdo();
+
+        $query = "
+            SELECT b.id, b.name, b.registered_address, b.registration_date, b.registration_number
+            FROM businesses b
+        ";
+
+        try {
+            $statement = $pdo->prepare($query);
+            $statement->execute();
+
+            return $statement->fetchAll(PDO::FETCH_ASSOC);
+        } catch (PDOException $e) {
+            // Handle the exception, e.g., log the error or show a user-friendly message
+            return []; // Return an empty array in case of an error
+        }
     }
 
     /**
@@ -65,8 +131,24 @@ class Challenge
      */
     public function getSingleBusinessRecord($id) 
     {
-        // TODO
-        return array();
+        $pdo = $this->pdoBuilder->getPdo();
+
+        $query = "
+            SELECT b.id, b.name, b.registered_address, b.registration_date, b.registration_number
+            FROM businesses b
+            WHERE b.id = :id
+        ";
+
+        try {
+            $statement = $pdo->prepare($query);
+            $statement->bindParam(':id', $id, PDO::PARAM_INT);
+            $statement->execute();
+
+            return $statement->fetch(PDO::FETCH_ASSOC);
+        } catch (PDOException $e) {
+            // Handle the exception, e.g., log the error or show a user-friendly message
+            return null; // Return null in case of an error
+        }
     }
 
     /**
@@ -77,8 +159,24 @@ class Challenge
      */
     public function getBusinessesRegisteredInYear($year)
     {
-        // TODO
-        return array();
+        $pdo = $this->pdoBuilder->getPdo();
+
+        $query = "
+            SELECT b.id, b.name, b.registered_address, b.registration_date, b.registration_number
+            FROM businesses b
+            WHERE YEAR(b.registration_date) = :year
+        ";
+    
+        try {
+            $statement = $pdo->prepare($query);
+            $statement->bindParam(':year', $year, PDO::PARAM_INT);
+            $statement->execute();
+    
+            return $statement->fetchAll(PDO::FETCH_ASSOC);
+        } catch (PDOException $e) {
+            // Handle the exception, e.g., log the error or show a user-friendly message
+            return []; // Return an empty array in case of an error
+        }
     }
 
     /**
@@ -88,8 +186,24 @@ class Challenge
      */
     public function getLast100Records()
     {
-        // TODO
-        return array();
+        $pdo = $this->pdoBuilder->getPdo();
+
+        $query = "
+            SELECT d.id, d.first_name, d.last_name, d.occupation, d.date_of_birth
+            FROM directors d
+            ORDER BY d.id DESC
+            LIMIT 100
+        ";
+
+        try {
+            $statement = $pdo->prepare($query);
+            $statement->execute();
+
+            return $statement->fetchAll(PDO::FETCH_ASSOC);
+        } catch (PDOException $e) {
+            // Handle the exception, e.g., log the error or show a user-friendly message
+            return []; // Return an empty array in case of an error
+        }
     }
 
     /**
@@ -106,8 +220,24 @@ class Challenge
      */
     public function getBusinessNameWithDirectorFullName()
     {
-        // TODO
-        return array();
+        $pdo = $this->pdoBuilder->getPdo();
+
+        $query = "
+            SELECT b.name AS business_name, CONCAT(d.first_name, ' ', d.last_name) AS director_name
+            FROM businesses b
+            JOIN director_businesses db ON b.id = db.business_id
+            JOIN directors d ON db.director_id = d.id
+        ";
+
+        try {
+            $statement = $pdo->prepare($query);
+            $statement->execute();
+
+            return $statement->fetchAll(PDO::FETCH_ASSOC);
+        } catch (PDOException $e) {
+            // Handle the exception, e.g., log the error or show a user-friendly message
+            return []; // Return an empty array in case of an error
+        }
     }
 
     /**
