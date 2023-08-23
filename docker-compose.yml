@@ -18,10 +18,10 @@ services:
     volumes:
       - ./otto-php-pdo-code-challenge-db.sql:/docker-entrypoint-initdb.d/init.sql
     environment:
-      - MYSQL_ROOT_PASSWORD=
-      - MYSQL_DATABASE=otto-code-challenge
-      - MYSQL_USER=mysql
-      - MYSQL_PASSWORD=
+      - MYSQL_ROOT_PASSWORD=${DB_PASSWORD}
+      - MYSQL_DATABASE=${DB_DATABASE}
+      - MYSQL_USER=${DB_USERNAME}
+      - MYSQL_PASSWORD=${DB_PASSWORD}
       - MYSQL_ALLOW_EMPTY_PASSWORD=true
     ports:
       - "127.0.0.1:3306:3306"
